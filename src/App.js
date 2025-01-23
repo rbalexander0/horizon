@@ -1,37 +1,27 @@
-import logo from './logo.svg';
 import './App.css';
+import CurrentWeather from './components/CurrentWeather';
 import { useEffect, useState } from 'react';
 
-// Displays current info
-function CurrentWeather({ data }) {
-  {/* Display weather data here */ }
-  return (
-    <div>{data ?
-      (
-        <div className='weather-container'>
-          <p className='temperature'>Temperature: </p>
-          <p className='description'>Condition: </p>
-        </div>
-      ) : (
-        <p>Loading weather data...</p>
-      )}</div>);
-}
-
-// // Search bar
-// function SearchBar({ onSearch }) {
-
-// }
+// TODO: Add search bar
 
 function WeatherApp() {
 
   const [weatherData, setWeatherData] = useState(null);
-  const [city, setCity] = useState('San Francisco');
+  // TODO: use geolocation API to pull current location upon load
+  const [city, setCity] = useState('San Jose');
+  // TODO: Add setUnits functionality
+  const [units, setUnits] = useState('imperial');
+  // TODO: Add setLang functionality
+  const [lang, setLang] = useState('en');
+
+  // TODO: Hide API key from inspect
   const apiKey = process.env.REACT_APP_OPEN_WEATHER_MAP_API_KEY;
 
   useEffect(() => {
     const fetchWeatherData = async () => {
+      // TODO: Add handling of errors
       const response = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`
+        `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${units}&lang=${lang}&appid=${apiKey}`
       );
       const data = await response.json();
       setWeatherData(data);
@@ -42,7 +32,6 @@ function WeatherApp() {
 
   return (
     <div className="App">
-      {/* <SearchBar onSearch={setCity} /> */}
       <h2 className='city-name'>{city}</h2>
       <CurrentWeather data={weatherData} />
     </div>
