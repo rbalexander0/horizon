@@ -1,4 +1,5 @@
 import './App.css';
+import Map from './components/Map';
 import CurrentWeather from './components/CurrentWeather';
 import { useEffect, useState } from 'react';
 
@@ -34,6 +35,7 @@ function WeatherApp() {
     <div className="App">
       <h2 className='city-name'>{city}</h2>
       <CurrentWeather data={weatherData} />
+      <Map lat={weatherData?.coord.lat} lon={weatherData?.coord.lon} />
     </div>
   );
 }
