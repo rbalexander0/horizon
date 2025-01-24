@@ -15,6 +15,7 @@ function CurrentWeather({ data }) {
                 <div className='weather-container'>
                     {/* TODO: Add units var based on user selection */}
                     {/* TODO: Clean this up and make it look nicer */}
+                    {/* TODO: For fun: add LLM summary of current weather */}
                     <p className='temperature'>Temperature: {Math.trunc(data.main.temp)}</p>
                     <p className='temperature'>High: {Math.trunc(data.main.temp_max)}</p>
                     <p className='temperature'>Low: {Math.trunc(data.main.temp_min)}</p>

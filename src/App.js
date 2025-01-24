@@ -11,7 +11,9 @@ function WeatherApp() {
 
   const [weatherData, setWeatherData] = useState(null);
   const [location, setLocation] = useState(null);
-  const [city, setCity] = useState('San Francisco');
+  const [usingQuery, setUsingQuery] = useState(true);
+  const [query, setQuery] = useState('Manhattan');
+  const [city, setCity] = useState(null);
   // TODO: Add setUnits functionality
   const [units, setUnits] = useState('imperial');
   // TODO: Add setLang functionality
@@ -23,15 +25,22 @@ function WeatherApp() {
   useEffect(() => {
     const fetchWeatherData = async () => {
       // TODO: Add handling of errors
-      const response = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${units}&lang=${lang}&appid=${apiKey}`
-      );
+
+      const api = usingQuery ?
+        `https://api.openweathermap.org/data/2.5/weather?q=${query}&units=${units}&lang=${lang}&appid=${apiKey}` :
+        `https://api.openweathermap.org/data/2.5/weather?lat=${location.coords.latitude}&lon=${location.coords.longitude}&units=${units}&lang=${lang}&appid=${apiKey}`
+
+      const response = await fetch(api);
       const data = await response.json();
+
       setWeatherData(data);
+      setCity(data.name);
     };
 
     fetchWeatherData();
-  }, [city])
+  },
+    // Update if any of the following change.
+    [query, location, units, lang, apiKey]);
 
   return (
     <div className="App">
@@ -40,11 +49,12 @@ function WeatherApp() {
           <img src={logo} className='logo' alt='logo' />
           <div className='title'>Horizon</div>
         </div>
-        <CurrentLocation location={location} setLocation={setLocation} />
+        <CurrentLocation location={location} setLocation={setLocation} setUsingQuery={setUsingQuery} />
       </div>
       <div className='content'>
         <div className='city-name'>{city}</div>
         <CurrentWeather data={weatherData} />
+        {/* TODO: Add forecast section */}
         <Map
           // Prefer to use current location if specified
           // TODO: Make fetchWeatherData also set location so we don't have to do this
