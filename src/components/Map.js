@@ -9,25 +9,23 @@ function Map({ lat, lon }) {
         lat: lat,
         lng: lon
     }
+    const mapContainerStyle = {
+        width: '100%',
+        height: '400px',
+        borderRadius: '8px',
+    }
 
     return (
         <div className='map-container'>
-            <h2>Map</h2>
-            <p>Latitude: {lat}</p>
-            <p>Longitude: {lon}</p>
-            <div className='map'>
-                <LoadScript googleMapsApiKey={`${apiKey}`}>
-                    <GoogleMap
-                        mapContainerStyle={{ width: '100%', height: '400px' }}
-                        center={center}
-                        zoom={10}
-                    // onLoad={onLoad}
-                    // onUnmount={onUnmount}
-                    >
-                        {/* Add markers, overlays, or other map elements here */}
-                    </GoogleMap>
-                </LoadScript>
-            </div>
+            <LoadScript googleMapsApiKey={`${apiKey}`}>
+                <GoogleMap
+                    mapContainerStyle={mapContainerStyle}
+                    center={center}
+                    zoom={11}
+                >
+                    {/* Overlay current location */}
+                </GoogleMap>
+            </LoadScript>
         </div >
     )
 }

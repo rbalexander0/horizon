@@ -2,6 +2,7 @@ import './App.css';
 import Map from './components/Map';
 import CurrentWeather from './components/CurrentWeather';
 import { useEffect, useState } from 'react';
+import logo from './logo.png';
 
 // TODO: Add search bar
 
@@ -9,7 +10,7 @@ function WeatherApp() {
 
   const [weatherData, setWeatherData] = useState(null);
   // TODO: use geolocation API to pull current location upon load
-  const [city, setCity] = useState('San Jose');
+  const [city, setCity] = useState('San Francisco');
   // TODO: Add setUnits functionality
   const [units, setUnits] = useState('imperial');
   // TODO: Add setLang functionality
@@ -33,10 +34,18 @@ function WeatherApp() {
 
   return (
     <div className="App">
-      <h2 className='city-name'>{city}</h2>
-      <CurrentWeather data={weatherData} />
-      <Map lat={weatherData?.coord.lat} lon={weatherData?.coord.lon} />
-    </div>
+      <div className='header'>
+        <div className='logo-container'>
+          <img src={logo} className='logo' alt='logo' />
+          <div className='title'>Horizon</div>
+        </div>
+      </div>
+      <div className='content'>
+        <div className='city-name'>{city}</div>
+        <CurrentWeather data={weatherData} />
+        <Map lat={weatherData?.coord.lat} lon={weatherData?.coord.lon} />
+      </div>
+    </div >
   );
 }
 
