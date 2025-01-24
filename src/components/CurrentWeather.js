@@ -101,7 +101,10 @@ function CurrentWeather({ data }) {
                     </div>
                 </div>
             ) : (
-                <p>Loading weather data...</p>
+                <div className='loading-container'>
+                    <div className='loading-circle'></div>
+                    <div className='loading-text'>Loading weather data...</div>
+                </div>
             )}</div>);
 }
 
