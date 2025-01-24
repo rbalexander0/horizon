@@ -1,22 +1,53 @@
 /* Container for the weather app */
 .weather-container {
-    background-color: #fff;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    /* Subtle shadow */
+    justify-items: center;
+    padding: 10px;
+}
+
+.temperature-card {
+    font-family: 'Proxima Nova';
+    justify-items: center;
+    padding: 10px;
 }
 
 /* Temperature styles */
-.temperature {
+.temperature-current {
+    font-family: 'Proxima Nova Black';
     font-size: 48px;
     font-weight: bold;
     margin-bottom: 10px;
 }
 
-/* Description styles */
-.description {
-    font-size: 18px;
-    color: #777;
-    /* Slightly lighter color for description */
+.condition {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 0px;
+}
+
+.temperature-high-low {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.weather-card-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.weather-card {
+    font-family: 'Proxima Nova';
+    /* Make the context aligned in the middle instead of top */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px;
+    background: linear-gradient(to top, #76adff, #e0e0e0);
+    border-color: #8a9ff9;
+    border-width: 2px;
+    border-radius: 8px;
+    margin: 10px;
+    aspect-ratio: 1;
+    min-width: 150px;
 }
