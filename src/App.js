@@ -10,7 +10,7 @@ import logo from './logo.png';
 function WeatherApp() {
 
   const [weatherData, setWeatherData] = useState(null);
-  // TODO: use geolocation API to pull current location upon load
+  const [location, setLocation] = useState(null);
   const [city, setCity] = useState('San Francisco');
   // TODO: Add setUnits functionality
   const [units, setUnits] = useState('imperial');
@@ -40,12 +40,16 @@ function WeatherApp() {
           <img src={logo} className='logo' alt='logo' />
           <div className='title'>Horizon</div>
         </div>
-        <CurrentLocation />
+        <CurrentLocation location={location} setLocation={setLocation} />
       </div>
       <div className='content'>
         <div className='city-name'>{city}</div>
         <CurrentWeather data={weatherData} />
-        <Map lat={weatherData?.coord.lat} lon={weatherData?.coord.lon} />
+        <Map
+          // Prefer to use current location if specified
+          // TODO: Make fetchWeatherData also set location so we don't have to do this
+          lat={location?.coords.latitude || weatherData?.coord.lat}
+          lon={location?.coords.longitude || weatherData?.coord.lon} />
       </div>
     </div >
   );
