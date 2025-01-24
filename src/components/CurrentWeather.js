@@ -99,13 +99,6 @@ function CurrentWeather({ data }) {
                         <WindCard data={data} />
                         <OtherInfoCard data={data} />
                     </div>
-                    <TemperatureCard data={data} />
-                    {/* <img src={`http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`} alt={data.weather[0].description} /> */}
-                    <div className='weather-card-container'>
-                        <SunriseSunsetCard data={data} />
-                        <WindCard data={data} />
-                        <OtherInfoCard data={data} />
-                    </div>
                 </div>
             ) : (
                 <div className='loading-container'>
