@@ -1,6 +1,7 @@
 import './App.css';
 import Map from './components/Map';
 import CurrentWeather from './components/CurrentWeather';
+import CurrentLocation from './components/CurrentLocation';
 import { useEffect, useState } from 'react';
 import logo from './logo.png';
 
@@ -39,6 +40,7 @@ function WeatherApp() {
           <img src={logo} className='logo' alt='logo' />
           <div className='title'>Horizon</div>
         </div>
+        <CurrentLocation />
       </div>
       <div className='content'>
         <div className='city-name'>{city}</div>
