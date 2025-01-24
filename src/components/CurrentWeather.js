@@ -69,8 +69,8 @@ function OtherInfoCard({ data }) {
     return (
         <div className='weather-card'>
             <p className='description'>Humidity: {data.main.humidity}%</p>
-            <p className='description'>Pressure: {data.main.pressure}</p>
-            <p className='description'>Visibility: {data.visibility}</p>
+            <p className='description'>Pressure: {data.main.pressure} mBar</p>
+            <p className='description'>Visibility: {data.visibility > 1000 ? `${Math.trunc(data.visibility / 1000)} km` : `${Math.trunc(data.visibility)} m`}</p>
         </div>
     )
 }
@@ -92,6 +92,13 @@ function CurrentWeather({ data }) {
                     {/* TODO: Add units var based on user selection */}
                     {/* TODO: Clean this up and make it look nicer */}
                     {/* TODO: For fun: add LLM summary of current weather */}
+                    <TemperatureCard data={data} />
+                    {/* <img src={`http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`} alt={data.weather[0].description} /> */}
+                    <div className='weather-card-container'>
+                        <SunriseSunsetCard data={data} />
+                        <WindCard data={data} />
+                        <OtherInfoCard data={data} />
+                    </div>
                     <TemperatureCard data={data} />
                     {/* <img src={`http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`} alt={data.weather[0].description} /> */}
                     <div className='weather-card-container'>
