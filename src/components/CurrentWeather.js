@@ -13,7 +13,7 @@ function TemperatureCard({ data }) {
             <div className='temperature-current'>{Math.trunc(data.main.temp)}°</div>
             {/* <p>Feels Like: {Math.trunc(data.main.feels_like)}°</p> */}
             <p className='condition'>{data.weather[0].main}</p>
-            <div className='temperature-high-low'>H:{Math.trunc(data.main.temp_max)}° L: {Math.trunc(data.main.temp_min)}°</div>
+            <div className='temperature-high-low'>H:{Math.trunc(data.main.temp_max)}° L:{Math.trunc(data.main.temp_min)}°</div>
 
         </div>
     )

@@ -2,6 +2,7 @@ import './App.css';
 import Map from './components/Map';
 import CurrentWeather from './components/CurrentWeather';
 import CurrentLocation from './components/CurrentLocation';
+import DailyForecast from './components/Forecast';
 import { useEffect, useState } from 'react';
 import logo from './logo.png';
 
@@ -54,7 +55,7 @@ function WeatherApp() {
       <div className='content'>
         <div className='city-name'>{city}</div>
         <CurrentWeather data={weatherData} />
-        {/* TODO: Add forecast section */}
+        <DailyForecast usingQuery={usingQuery} query={query} location={location} units={units} lang={lang} />
         <Map
           // Prefer to use current location if specified
           // TODO: Make fetchWeatherData also set location so we don't have to do this
