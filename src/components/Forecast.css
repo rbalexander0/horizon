@@ -1,0 +1,77 @@
+.forecast-card-container {
+    height: fit-content;
+    /* center objects within the container */
+    display: block;
+    justify-items: center;
+    padding: 20px;
+}
+
+.forecast-card {
+    display: flex;
+    flex-direction: column;
+    /* As wide as the content */
+    width: fit-content;
+    /* Set the height to make it a square */
+    /* aspect-ratio: 1; */
+    border-radius: 8px;
+    /* Fill the height */
+    justify-content: space-between;
+    background: linear-gradient(to top, #76adff, #e0e0e0);
+    padding: 10px 0px;
+}
+
+.forecast-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: min-content;
+    border-radius: 8px;
+    margin: 0px;
+}
+
+.forecast-day {
+    display: flex;
+    font-family: 'Proxima Nova';
+    font-weight: bold;
+    text-align: left;
+    margin: 0px 10px;
+}
+
+.forecast-bar-container {
+    display: flex;
+    flex-direction: row;
+    align-items: left;
+    align-content: center;
+    margin: 1px;
+    padding: 1px;
+    border-radius: 8px;
+    width: 200px;
+    height: 100%;
+}
+
+.forecast-bar-temp {
+    display: flex;
+    font-family: 'Proxima Nova';
+    font-weight: bold;
+    text-align: left;
+    margin: 0px 4px;
+    padding: 0px;
+    /* margin-right: 10px; */
+}
+
+.forecast-bar-background {
+    background-color: #e0e0e0;
+    height: 10px;
+    border-radius: 8px;
+    margin: 0px 10px;
+    width: 100px;
+    align-content: center;
+}
+
+.forecast-bar {
+    position: relative;
+    background-color: #4CAF50;
+    height: 10px;
+    border-radius: 8px;
+}
