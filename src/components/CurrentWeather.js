@@ -29,8 +29,10 @@ function TemperatureCard({ data }) {
 function SunriseSunsetCard({ data }) {
     return (
         <div className='weather-card'>
-            <p>Sunrise: {new Date(data.sys.sunrise * 1000).toLocaleTimeString('en-US', { hour12: true, hour: 'numeric', minute: '2-digit' })}</p>
-            <p>Sunset: {new Date(data.sys.sunset * 1000).toLocaleTimeString([], { hour12: true, hour: 'numeric', minute: '2-digit' })}</p>
+            <p>Sunrise: {new Date(data.sys.sunrise * 1000).toLocaleTimeString('en-US',
+                { timeZone: 'UTC', hour12: true, hour: 'numeric', minute: '2-digit' })}</p>
+            <p>Sunset: {new Date(data.sys.sunset * 1000).toLocaleTimeString([],
+                { timeZone: 'UTC', hour12: true, hour: 'numeric', minute: '2-digit' })}</p>
         </div>
     )
 }
@@ -52,8 +54,8 @@ function WindCard({ data }) {
     return (
         <div className='weather-card'>
             {/* TODO: Add units var based on user selection */}
-            <p>Wind Speed: {Math.trunc(data.wind.speed)} MPH</p>
-            <p>Wind Direction: {getWindDirection(data.wind.deg)}</p>
+            <p>wind speed: {Math.trunc(data.wind.speed)} MPH</p>
+            <p>wind direction: {getWindDirection(data.wind.deg)}</p>
         </div>
     );
 }
@@ -68,9 +70,9 @@ function WindCard({ data }) {
 function OtherInfoCard({ data }) {
     return (
         <div className='weather-card'>
-            <p className='description'>Humidity: {data.main.humidity}%</p>
-            <p className='description'>Pressure: {data.main.pressure} mBar</p>
-            <p className='description'>Visibility: {data.visibility > 1000 ? `${Math.trunc(data.visibility / 1000)} km` : `${Math.trunc(data.visibility)} m`}</p>
+            <p className='description'>humidity: {data.main.humidity}%</p>
+            <p className='description'>pressure: {data.main.pressure} mBar</p>
+            <p className='description'>visibility: {data.visibility > 1000 ? `${Math.trunc(data.visibility / 1000)} km` : `${Math.trunc(data.visibility)} m`}</p>
         </div>
     )
 }
@@ -103,7 +105,7 @@ function CurrentWeather({ data }) {
             ) : (
                 <div className='loading-container'>
                     <div className='loading-circle'></div>
-                    <div className='loading-text'>Loading weather data...</div>
+                    <div className='loading-text'>loading weather data...</div>
                 </div>
             )}</div>);
 }

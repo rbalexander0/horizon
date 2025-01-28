@@ -1,7 +1,6 @@
 /* Map styles */
 .map-container {
-    margin-top: 20px;
-    padding: 30px;
+    padding: 20px;
     border-radius: 8px;
     justify-items: left;
 }
