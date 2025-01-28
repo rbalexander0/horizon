@@ -29,7 +29,13 @@
               name: horizon
               path: build
 
+          - name: Download artifact
+            uses: actions/download-artifact@v3
+            with:
+              name: horizon 
+      
           - name: Deploy to GitHub Pages
             uses: actions/deploy-pages@v1
             with:
-              path: .
+              path: build
+      
