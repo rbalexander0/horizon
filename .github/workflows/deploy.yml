@@ -7,7 +7,7 @@
     jobs:
       deploy:
         runs-on: ubuntu-latest
-        
+
         permissions:
           id-token: write
           pages: write
@@ -23,5 +23,13 @@
           - name: Build website  
             run: npm run build
 
-          - name: Deploy to GitHub Pages  
+          - name: Upload artifact
+            uses: actions/upload-artifact@v3
+            with:
+              name: horizon
+              path: build
+
+          - name: Deploy to GitHub Pages
             uses: actions/deploy-pages@v1
+            with:
+              path: .
