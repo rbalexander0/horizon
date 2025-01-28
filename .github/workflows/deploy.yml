@@ -11,6 +11,9 @@
           - name: Checkout code
             uses: actions/checkout@v3
 
+          - name: Install dependencies
+            run: npm install
+
           - name: Build website  
             run: npm run build
 
