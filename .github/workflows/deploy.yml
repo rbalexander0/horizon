@@ -23,19 +23,8 @@
           - name: Build website  
             run: npm run build
 
-          - name: Upload artifact
-            uses: actions/upload-artifact@v3
-            with:
-              name: horizon
-              path: build
-
-          - name: Download artifact
-            uses: actions/download-artifact@v3
-            with:
-              name: horizon 
-      
           - name: Deploy to GitHub Pages
             uses: actions/deploy-pages@v1
             with:
-              path: build
+              path: ./build
       

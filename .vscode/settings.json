@@ -1,0 +1,6 @@
+{
+    "github-actions.workflows.pinned.workflows": [
+        ".github/workflows/deploy.yml",
+        ".github/workflows/codeql.yml"
+    ]
+}
