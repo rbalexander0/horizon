@@ -4,6 +4,9 @@
     display: block;
     justify-items: center;
     padding: 20px;
+    text-transform: lowercase;
+    font-family: 'Proxima Nova';
+    font-weight: bold;
 }
 
 .forecast-card {
@@ -17,7 +20,7 @@
     /* Fill the height */
     justify-content: space-between;
     background: linear-gradient(to top, #76adff, #e0e0e0);
-    padding: 10px 0px;
+    padding: 10px 8px;
 }
 
 .forecast-row {
@@ -28,36 +31,31 @@
     height: min-content;
     border-radius: 8px;
     margin: 0px;
+    padding: 1px 0px;
 }
 
 .forecast-day {
     display: flex;
-    font-family: 'Proxima Nova';
-    font-weight: bold;
     text-align: left;
+    width: 32px;
     margin: 0px 10px;
 }
 
 .forecast-bar-container {
     display: flex;
     flex-direction: row;
-    align-items: left;
+    align-items: center;
     align-content: center;
     margin: 1px;
-    padding: 1px;
+    padding: 0px;
     border-radius: 8px;
-    width: 200px;
     height: 100%;
 }
 
 .forecast-bar-temp {
     display: flex;
-    font-family: 'Proxima Nova';
-    font-weight: bold;
     text-align: left;
-    margin: 0px 4px;
-    padding: 0px;
-    /* margin-right: 10px; */
+    width: 32px;
 }
 
 .forecast-bar-background {
