@@ -13,12 +13,12 @@ function WeatherApp() {
   const [weatherData, setWeatherData] = useState(null);
   const [location, setLocation] = useState(null);
   const [usingQuery, setUsingQuery] = useState(true);
-  const [query, setQuery] = useState('Manhattan');
+  const [query, /*setQuery*/] = useState('Manhattan');
   const [city, setCity] = useState(null);
   // TODO: Add setUnits functionality
-  const [units, setUnits] = useState('imperial');
+  const [units, /*setUnits*/] = useState('imperial');
   // TODO: Add setLang functionality
-  const [lang, setLang] = useState('en');
+  const [lang, /*setLang*/] = useState('en');
 
   // TODO: Hide API key from inspect
   const apiKey = process.env.REACT_APP_OPEN_WEATHER_MAP_API_KEY;
@@ -41,7 +41,7 @@ function WeatherApp() {
     fetchWeatherData();
   },
     // Update if any of the following change.
-    [query, location, units, lang, apiKey]);
+    [query, usingQuery, location, units, lang, apiKey]);
 
   /**
    * Generates a background gradient color based on the time of day

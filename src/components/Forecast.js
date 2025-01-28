@@ -169,7 +169,7 @@ function DailyForecast({ usingQuery, query, location, units, lang }) {
         fetchForecastData();
     },
         // Update if any of the following change.
-        [query, location, units, lang, apiKey]);
+        [query, location, units, lang, apiKey, usingQuery]);
 
     return (
         <div className='forecast-card-container'>
