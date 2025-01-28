@@ -23,8 +23,11 @@
           - name: Build website  
             run: npm run build
 
-          - name: Deploy to GitHub Pages
-            uses: actions/deploy-pages@v1
+          - name: Upload static files as artifact
+            uses: actions/upload-pages-artifact@v3
             with:
-              path: ./build
-      
+              path: build_outputs_folder/ # Or./build_outputs_folder/
+
+          - name: Deploy to GitHub Pages
+            uses: actions/deploy-pages@v4
+            id: deployment
