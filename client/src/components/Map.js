@@ -6,9 +6,11 @@ function Map({ lat, lon }) {
 
     const [apiKey, setApiKey] = useState(null);
 
+    const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:8080';
+
     useEffect(() => {
         const fetchApiKey = async () => {
-            const response = await fetch('http://localhost:5000/api/google-maps-api-key');
+            const response = await fetch(`${apiUrl}/api/google-maps-api-key`);
             const data = await response.json();
 
             // TODO: Hide API key from inspect

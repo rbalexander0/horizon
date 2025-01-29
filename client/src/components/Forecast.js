@@ -153,9 +153,11 @@ function DailyForecast({ query, location, units, lang }) {
         const fetchForecastData = async () => {
             // TODO: Add handling of errors
 
+            const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:8080';
+
             const api = !location ?
-                `http://localhost:5000/api/forecast?query=${query}&units=${units}&lang=${lang}` :
-                `http://localhost:5000/api/forecast?lat=${location.coords.latitude}&lon=${location.coords.longitude}&units=${units}&lang=${lang}`;
+                `${apiUrl}/api/forecast?query=${query}&units=${units}&lang=${lang}` :
+                `${apiUrl}/api/forecast?lat=${location.coords.latitude}&lon=${location.coords.longitude}&units=${units}&lang=${lang}`;
 
             const response = await fetch(api);
             const data = await response.json();

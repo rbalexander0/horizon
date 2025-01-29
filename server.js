@@ -54,7 +54,7 @@ app.get('/api/google-maps-api-key', async (req, res) => {
 
 
 // Start the server
-const port = process.env.PORT || 5000; // Use environment variable for port or default to 5000
+const port = process.env.PORT || 8080;
 app.listen(port, () => {
     console.log(`Server listening on port ${port}`);
 });
