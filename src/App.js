@@ -19,15 +19,13 @@ function WeatherApp() {
   // TODO: Add setLang functionality
   const [lang, /*setLang*/] = useState('en');
 
-  const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:8080'; // Default to local
-
   useEffect(() => {
     const fetchWeatherData = async () => {
       try {
         // TODO: fix this to use proxy routes so we don't have to use localhost
         const api = !location ?
-          `${apiUrl}/api/weather?city=${query}&units=${units}&lang=${lang}` :
-          `${apiUrl}/api/weather?lat=${location.coords.latitude}&lon=${location.coords.longitude}&units=${units}&lang=${lang}`;
+          `http://localhost:5000/api/weather?city=${query}&units=${units}&lang=${lang}` :
+          `http://localhost:5000/api/weather?lat=${location.coords.latitude}&lon=${location.coords.longitude}&units=${units}&lang=${lang}`;
 
         const response = await fetch(api);
         const data = await response.json();
