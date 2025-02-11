@@ -12,7 +12,7 @@ import './CurrentLocation.css';
  */
 function CurrentLocation({ location, setLocation, setUsingQuery }) {
 
-    const GetCurrentLocation = () => {
+    const GetCurrentLocation = async () => {
         navigator.geolocation.getCurrentPosition(setLocation);
         // Now using current location instead of query.
         setUsingQuery(false);

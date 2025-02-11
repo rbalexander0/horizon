@@ -5,6 +5,7 @@ import CurrentLocation from './components/CurrentLocation';
 import DailyForecast from './components/Forecast';
 import { useEffect, useState } from 'react';
 import logo from './logo.png';
+import UnitsButton from './components/UnitsButton';
 
 // TODO: Add search bar
 
@@ -15,8 +16,7 @@ function WeatherApp() {
   const [usingQuery, setUsingQuery] = useState(true);
   const [query, /*setQuery*/] = useState('Manhattan');
   const [city, setCity] = useState(null);
-  // TODO: Add setUnits functionality
-  const [units, /*setUnits*/] = useState('imperial');
+  const [units, setUnits] = useState('imperial');
   // TODO: Add setLang functionality
   const [lang, /*setLang*/] = useState('en');
 
@@ -87,7 +87,10 @@ function WeatherApp() {
           <img src={logo} className='logo' alt='logo' />
           <div className='title'>Horizon</div>
         </div>
-        <CurrentLocation location={location} setLocation={setLocation} setUsingQuery={setUsingQuery} />
+        <div className='right-side-container'>
+          <CurrentLocation location={location} setLocation={setLocation} setUsingQuery={setUsingQuery} />
+          <UnitsButton units={units} onClick={() => setUnits(units === 'metric' ? 'imperial' : 'metric')} />
+        </div>
       </div>
       <div className='content'>
         <div className='city-name'>{city}</div>
