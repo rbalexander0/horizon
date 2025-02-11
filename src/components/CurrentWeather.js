@@ -29,9 +29,9 @@ function TemperatureCard({ data }) {
 function SunriseSunsetCard({ data }) {
     return (
         <div className='weather-card'>
-            <p>Sunrise: {new Date(data.sys.sunrise * 1000).toLocaleTimeString('en-US',
+            <p>sunrise: {new Date(data.sys.sunrise * 1000).toLocaleTimeString('en-US',
                 { timeZone: 'UTC', hour12: true, hour: 'numeric', minute: '2-digit' })}</p>
-            <p>Sunset: {new Date(data.sys.sunset * 1000).toLocaleTimeString([],
+            <p>sunset: {new Date(data.sys.sunset * 1000).toLocaleTimeString([],
                 { timeZone: 'UTC', hour12: true, hour: 'numeric', minute: '2-digit' })}</p>
         </div>
     )
