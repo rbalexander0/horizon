@@ -37,10 +37,12 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@babel/plugin-transform-private-property-in-object": "^7.25.9"
   },
   "babel": {
     "plugins": [
+      "@babel/plugin-proposal-private-property-in-object",
       "@babel/plugin-transform-private-property-in-object"
     ]
   }
