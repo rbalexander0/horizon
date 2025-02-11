@@ -23,7 +23,7 @@ function CurrentLocation({ location, setLocation }) {
         </button > :
         <button className='current-location-button' onClick={GetCurrentLocation}>
             <FaLocationArrow className='current-location-icon' />
-            Get Current Location
+            <div className='current-location-text'>Get Current Location</div>
         </button >
     );
 }

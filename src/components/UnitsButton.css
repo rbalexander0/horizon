@@ -5,7 +5,7 @@
     border: none;
     color: white;
     text-align: center;
-    font-size: clamp(12px, 3vw, 16px);
+    font-size: 16px;
     padding: 6px 12px;
     margin: 15px 5px;
     width: 40px;
