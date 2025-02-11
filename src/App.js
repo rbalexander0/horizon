@@ -9,6 +9,8 @@ import UnitsButton from './components/UnitsButton';
 
 // TODO: Add search bar
 
+const cache = {};
+
 function WeatherApp() {
 
   const [weatherData, setWeatherData] = useState(null);
@@ -24,17 +26,25 @@ function WeatherApp() {
 
   useEffect(() => {
     const fetchWeatherData = async () => {
-      // TODO: Add handling of errors
 
-      const api = !location ?
-        `https://api.openweathermap.org/data/2.5/weather?q=${query}&units=${units}&lang=${lang}&appid=${apiKey}` :
-        `https://api.openweathermap.org/data/2.5/weather?lat=${location.coords.latitude}&lon=${location.coords.longitude}&units=${units}&lang=${lang}&appid=${apiKey}`
+      // Cache weather data by location and units so we don't make too many requests.
+      const cacheKey = `${location}_${units}`;
 
-      const response = await fetch(api);
-      const data = await response.json();
+      if (cache[cacheKey]) {
+        setWeatherData(cache[cacheKey]);
+      } else {
+        // TODO: Add handling of errors
+        const api = !location ?
+          `https://api.openweathermap.org/data/2.5/weather?q=${query}&units=${units}&lang=${lang}&appid=${apiKey}` :
+          `https://api.openweathermap.org/data/2.5/weather?lat=${location.coords.latitude}&lon=${location.coords.longitude}&units=${units}&lang=${lang}&appid=${apiKey}`
 
-      setWeatherData(data);
-      setCity(data.name);
+        const response = await fetch(api);
+        const data = await response.json();
+
+        cache[cacheKey] = data;
+        setWeatherData(data);
+        setCity(data.name);
+      }
     };
 
     fetchWeatherData();
