@@ -15,7 +15,7 @@ function WeatherApp() {
 
   const [weatherData, setWeatherData] = useState(null);
   const [location, setLocation] = useState(null);
-  const [query, /*setQuery*/] = useState('Manhattan');
+  const [query, /*setQuery*/] = useState('south lake tahoe');
   const [city, setCity] = useState(null);
   const [units, setUnits] = useState('imperial');
   // TODO: Add setLang functionality

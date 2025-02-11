@@ -28,12 +28,14 @@ function TemperatureCard({ data }) {
  */
 function SunriseSunsetCard({ data }) {
     return (
+        /*************  ✨ Codeium Command 🌟  *************/
         <div className='weather-card'>
             <p>sunrise: {new Date(data.sys.sunrise * 1000).toLocaleTimeString('en-US',
-                { timeZone: 'UTC', hour12: true, hour: 'numeric', minute: '2-digit' })}</p>
+                { hour12: true, hour: 'numeric', minute: '2-digit' })}</p>
             <p>sunset: {new Date(data.sys.sunset * 1000).toLocaleTimeString([],
-                { timeZone: 'UTC', hour12: true, hour: 'numeric', minute: '2-digit' })}</p>
+                { hour12: true, hour: 'numeric', minute: '2-digit' })}</p>
         </div>
+        /******  eaeb9a31-7305-4496-b472-f56587691e39  *******/
     )
 }
 
