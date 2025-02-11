@@ -12,6 +12,7 @@ function WeatherApp() {
 
   const [weatherData, setWeatherData] = useState(null);
   const [location, setLocation] = useState(null);
+  const [usingQuery, setUsingQuery] = useState(true);
   const [query, /*setQuery*/] = useState('Manhattan');
   const [city, setCity] = useState(null);
   // TODO: Add setUnits functionality
@@ -19,31 +20,28 @@ function WeatherApp() {
   // TODO: Add setLang functionality
   const [lang, /*setLang*/] = useState('en');
 
+  // TODO: Hide API key from inspect
+  const apiKey = process.env.REACT_APP_OPEN_WEATHER_MAP_API_KEY;
+
   useEffect(() => {
     const fetchWeatherData = async () => {
-      try {
-        // TODO: fix this to use proxy routes so we don't have to use localhost
-        const api = !location ?
-          `http://localhost:5000/api/weather?city=${query}&units=${units}&lang=${lang}` :
-          `http://localhost:5000/api/weather?lat=${location.coords.latitude}&lon=${location.coords.longitude}&units=${units}&lang=${lang}`;
+      // TODO: Add handling of errors
 
-        const response = await fetch(api);
-        const data = await response.json();
+      const api = usingQuery ?
+        `https://api.openweathermap.org/data/2.5/weather?q=${query}&units=${units}&lang=${lang}&appid=${apiKey}` :
+        `https://api.openweathermap.org/data/2.5/weather?lat=${location.coords.latitude}&lon=${location.coords.longitude}&units=${units}&lang=${lang}&appid=${apiKey}`
 
-        setWeatherData(data);
-        setCity(data.name);
+      const response = await fetch(api);
+      const data = await response.json();
 
-      } catch (error) {
-        console.error("Error fetching weather data:", error);
-        // TODO: Add handling of errors
-        // Handle error, e.g., display a notification to the user
-      }
+      setWeatherData(data);
+      setCity(data.name);
     };
 
     fetchWeatherData();
   },
     // Update if any of the following change.
-    [query, location, units, lang]);
+    [query, usingQuery, location, units, lang, apiKey]);
 
   /**
    * Generates a background gradient color based on the time of day
@@ -89,12 +87,12 @@ function WeatherApp() {
           <img src={logo} className='logo' alt='logo' />
           <div className='title'>Horizon</div>
         </div>
-        <CurrentLocation location={location} setLocation={setLocation} />
+        <CurrentLocation location={location} setLocation={setLocation} setUsingQuery={setUsingQuery} />
       </div>
       <div className='content'>
         <div className='city-name'>{city}</div>
         <CurrentWeather data={weatherData} />
-        <DailyForecast query={query} location={location} units={units} lang={lang} />
+        <DailyForecast usingQuery={usingQuery} query={query} location={location} units={units} lang={lang} />
         <Map
           // Prefer to use current location if specified
           // TODO: Make fetchWeatherData also set location so we don't have to do this

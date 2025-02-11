@@ -138,24 +138,27 @@ function ForecastBar({ dailyForecast, forecastMinMax }) {
  * Component to display a 5-day forecast.
  * 
  * @param {Object} props - Component properties.
- * @param {string} props.query - The query to use to fetch the forecast.
- * @param {Object} props.location - The user's current location as a geolocation object.
+ * @param {boolean} props.usingQuery - Whether to use the query or the user's current location to fetch the forecast.
+ * @param {string} props.query - The query to use to fetch the forecast. Ignored if usingQuery is false.
+ * @param {Object} props.location - The user's current location as a geolocation object. Ignored if usingQuery is true.
  * @param {string} props.units - The units to use for the forecast.
  * @param {string} props.lang - The language to use for the forecast.
  * 
  * @returns {JSX.Element} The JSX code to display the forecast.
  */
-function DailyForecast({ query, location, units, lang }) {
+function DailyForecast({ usingQuery, query, location, units, lang }) {
 
     const [forecastData, setForecastData] = useState(null);
+
+    const apiKey = process.env.REACT_APP_OPEN_WEATHER_MAP_API_KEY;
 
     useEffect(() => {
         const fetchForecastData = async () => {
             // TODO: Add handling of errors
 
-            const api = !location ?
-                `http://localhost:5000/api/forecast?query=${query}&units=${units}&lang=${lang}` :
-                `http://localhost:5000/api/forecast?lat=${location.coords.latitude}&lon=${location.coords.longitude}&units=${units}&lang=${lang}`;
+            const api = usingQuery ?
+                `https://api.openweathermap.org/data/2.5/forecast?q=${query}&units=${units}&lang=${lang}&appid=${apiKey}` :
+                `https://api.openweathermap.org/data/2.5/forecast?lat=${location?.coords.latitude}&lon=${location?.coords.longitude}&units=${units}&lang=${lang}&appid=${apiKey}`
 
             const response = await fetch(api);
             const data = await response.json();
@@ -166,7 +169,7 @@ function DailyForecast({ query, location, units, lang }) {
         fetchForecastData();
     },
         // Update if any of the following change.
-        [query, location, units, lang]);
+        [query, location, units, lang, apiKey, usingQuery]);
 
     return (
         <div className='forecast-card-container'>
