@@ -13,7 +13,6 @@ function WeatherApp() {
 
   const [weatherData, setWeatherData] = useState(null);
   const [location, setLocation] = useState(null);
-  const [usingQuery, setUsingQuery] = useState(true);
   const [query, /*setQuery*/] = useState('Manhattan');
   const [city, setCity] = useState(null);
   const [units, setUnits] = useState('imperial');
@@ -27,7 +26,7 @@ function WeatherApp() {
     const fetchWeatherData = async () => {
       // TODO: Add handling of errors
 
-      const api = usingQuery ?
+      const api = !location ?
         `https://api.openweathermap.org/data/2.5/weather?q=${query}&units=${units}&lang=${lang}&appid=${apiKey}` :
         `https://api.openweathermap.org/data/2.5/weather?lat=${location.coords.latitude}&lon=${location.coords.longitude}&units=${units}&lang=${lang}&appid=${apiKey}`
 
@@ -41,7 +40,7 @@ function WeatherApp() {
     fetchWeatherData();
   },
     // Update if any of the following change.
-    [query, usingQuery, location, units, lang, apiKey]);
+    [query, location, units, lang, apiKey]);
 
   /**
    * Generates a background gradient color based on the time of day
@@ -88,14 +87,14 @@ function WeatherApp() {
           <div className='title'>Horizon</div>
         </div>
         <div className='right-side-container'>
-          <CurrentLocation location={location} setLocation={setLocation} setUsingQuery={setUsingQuery} />
+          <CurrentLocation location={location} setLocation={setLocation} />
           <UnitsButton units={units} onClick={() => setUnits(units === 'metric' ? 'imperial' : 'metric')} />
         </div>
       </div>
       <div className='content'>
         <div className='city-name'>{city}</div>
         <CurrentWeather data={weatherData} />
-        <DailyForecast usingQuery={usingQuery} query={query} location={location} units={units} lang={lang} />
+        <DailyForecast query={query} location={location} units={units} lang={lang} />
         <Map
           // Prefer to use current location if specified
           // TODO: Make fetchWeatherData also set location so we don't have to do this

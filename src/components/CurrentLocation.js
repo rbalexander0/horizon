@@ -10,12 +10,10 @@ import './CurrentLocation.css';
  * 
  * @returns {JSX.Element} The JSX code to display the button.
  */
-function CurrentLocation({ location, setLocation, setUsingQuery }) {
+function CurrentLocation({ location, setLocation }) {
 
     const GetCurrentLocation = async () => {
         navigator.geolocation.getCurrentPosition(setLocation);
-        // Now using current location instead of query.
-        setUsingQuery(false);
     }
 
     // Assume that user is not moving quickly and only needs to click this buttononce.
