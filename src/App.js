@@ -15,7 +15,7 @@ function WeatherApp() {
 
   const [weatherData, setWeatherData] = useState(null);
   const [location, setLocation] = useState(null);
-  const [query, /*setQuery*/] = useState('south lake tahoe');
+  const [query, setQuery] = useState('south lake tahoe');
   const [city, setCity] = useState(null);
   const [units, setUnits] = useState('imperial');
   // TODO: Add setLang functionality
@@ -102,7 +102,21 @@ function WeatherApp() {
         </div>
       </div>
       <div className='content'>
-        <div className='city-name'>{city}</div>
+        <div className='search-city-container'>
+          {/* Search bar that sets query when you hit enter  */}
+          <input
+            className='search-city-input'
+            type="text"
+            placeholder="Search for a city"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                setQuery(e.target.value);
+              }
+            }} />
+          <div className='city-name'>{city}</div>
+        </div>
         <CurrentWeather data={weatherData} />
         <DailyForecast query={query} location={location} units={units} lang={lang} />
         <Map
