@@ -133,6 +133,7 @@ function ForecastBar({ dailyForecast, forecastMinMax }) {
     )
 }
 
+const cache = {};
 
 /**
  * Component to display a 5-day forecast.
@@ -153,16 +154,22 @@ function DailyForecast({ query, location, units, lang }) {
 
     useEffect(() => {
         const fetchForecastData = async () => {
-            // TODO: Add handling of errors
+            const cacheKey = `${location}_${units}`;
+            if (cache[cacheKey]) {
+                setForecastData(cache[cacheKey]);
+            } else {
+                // TODO: Add handling of errors
 
-            const api = !location ?
-                `https://api.openweathermap.org/data/2.5/forecast?q=${query}&units=${units}&lang=${lang}&appid=${apiKey}` :
-                `https://api.openweathermap.org/data/2.5/forecast?lat=${location.coords.latitude}&lon=${location.coords.longitude}&units=${units}&lang=${lang}&appid=${apiKey}`
+                const api = !location ?
+                    `https://api.openweathermap.org/data/2.5/forecast?q=${query}&units=${units}&lang=${lang}&appid=${apiKey}` :
+                    `https://api.openweathermap.org/data/2.5/forecast?lat=${location.coords.latitude}&lon=${location.coords.longitude}&units=${units}&lang=${lang}&appid=${apiKey}`
 
-            const response = await fetch(api);
-            const data = await response.json();
+                const response = await fetch(api);
+                const data = await response.json();
 
-            setForecastData(data);
+                cache[cacheKey] = data;
+                setForecastData(data);
+            }
         };
 
         fetchForecastData();

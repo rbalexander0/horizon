@@ -21,6 +21,12 @@
   justify-content: left;
 }
 
+.right-side-container {
+  display: flex;
+  flex-direction: row;
+  padding: 0px 12px;
+}
+
 .logo {
   padding: 8px;
   height: 90%;

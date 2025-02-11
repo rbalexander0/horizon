@@ -1,0 +1,22 @@
+.units-button {
+    font-family: 'Proxima Nova';
+    background-color: #46b4f8;
+    width: px;
+    border: none;
+    color: white;
+    text-align: center;
+    font-size: 16px;
+    padding: 6px 12px;
+    margin: 15px 5px;
+    width: 40px;
+    border-radius: 8px;
+    text-transform: lowercase;
+    display: flex;
+    align-items: center;
+    justify-self: right;
+    justify-content: center;
+}
+
+.units-button:hover {
+    background-color: #3589bd;
+}
