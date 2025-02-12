@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/horizon/static/css/main.744d62cc.css",
-    "main.js": "/horizon/static/js/main.1b5dc72d.js",
+    "main.css": "/horizon/static/css/main.957be3d6.css",
+    "main.js": "/horizon/static/js/main.64927539.js",
     "static/js/488.600c7d29.chunk.js": "/horizon/static/js/488.600c7d29.chunk.js",
     "static/media/logo.png": "/horizon/static/media/logo.f9fa70023b3c4c12ed01.png",
     "static/media/proximanova_bold.woff2": "/horizon/static/media/proximanova_bold.1fe25dca83657e574d7a.woff2",
     "static/media/proximanova_black.woff2": "/horizon/static/media/proximanova_black.6eadfc2c8ed2edd704c0.woff2",
     "index.html": "/horizon/index.html",
-    "main.744d62cc.css.map": "/horizon/static/css/main.744d62cc.css.map",
-    "main.1b5dc72d.js.map": "/horizon/static/js/main.1b5dc72d.js.map",
+    "main.957be3d6.css.map": "/horizon/static/css/main.957be3d6.css.map",
+    "main.64927539.js.map": "/horizon/static/js/main.64927539.js.map",
     "488.600c7d29.chunk.js.map": "/horizon/static/js/488.600c7d29.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.744d62cc.css",
-    "static/js/main.1b5dc72d.js"
+    "static/css/main.957be3d6.css",
+    "static/js/main.64927539.js"
   ]
 }
