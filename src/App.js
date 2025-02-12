@@ -1,14 +1,15 @@
 import './App.css';
+
 import Map from './components/Map';
 import CurrentWeather from './components/CurrentWeather';
 import CurrentLocation from './components/CurrentLocation';
 import DailyForecast from './components/Forecast';
 import SearchBar from './components/SearchBar';
-import { useEffect, useState } from 'react';
-import logo from './logo.png';
 import UnitsButton from './components/UnitsButton';
 
-// TODO: Add search bar
+import { useEffect, useState } from 'react';
+
+import logo from './logo.png';
 
 const cache = {};
 

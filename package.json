@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://rbalexander0.github.io/horizon/",
   "dependencies": {
+    "@google/generative-ai": "^0.21.0",
     "@react-google-maps/api": "^2.20.5",
     "cra-template": "1.2.0",
     "gh-pages": "^6.3.0",

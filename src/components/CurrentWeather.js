@@ -1,18 +1,22 @@
 import './CurrentWeather.css';
+import { useEffect, useState } from 'react';
+
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 /**
- * Component to display current temperature info in a card.
+ * Component to display current weather information in a card.
  * 
  * @param {Object} props - Component properties.
  * @param {Object} props.data - Weather data object containing temperature and other weather details.
- * @returns {JSX.Element} The JSX code to display current temperature information.
+ * @param {string} props.summary - Summary of the current weather condition.
+ * @returns {JSX.Element} The JSX code to display current weather information.
  */
-function TemperatureCard({ data }) {
+function TemperatureCard({ data, summary }) {
     return (
         <div className='temperature-card'>
             <div className='temperature-current'>{Math.trunc(data.main.temp)}°</div>
             {/* <p>Feels Like: {Math.trunc(data.main.feels_like)}°</p> */}
-            <p className='condition'>{data.weather[0].main}</p>
+            <p className='condition'>{summary}</p>
             <div className='temperature-high-low'>H:{Math.trunc(data.main.temp_max)}° L:{Math.trunc(data.main.temp_min)}°</div>
 
         </div>
@@ -81,6 +85,8 @@ function OtherInfoCard({ data }) {
     )
 }
 
+// Cache summaries
+const summary_cache = {};
 
 // Displays current info
 /**
@@ -91,14 +97,40 @@ function OtherInfoCard({ data }) {
  * @returns {JSX.Element} The JSX code to display current weather information.
  */
 function CurrentWeather({ data }) {
+
+    const [summary, setSummary] = useState('test');
+
+    useEffect(() => {
+        const summarize = async (data) => {
+
+            // Cache summaries per city name -- it's not needed to make a request when e.g. units change
+            if (summary_cache[data.name]) {
+                setSummary(summary_cache[data.name]);
+                return;
+            }
+
+            const apiKey = process.env.REACT_APP_GEMINI_API_KEY;
+            const genAI = new GoogleGenerativeAI(apiKey);
+
+            const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+            const prompt = `You are a meteorologist, your task is to summarize this weather data in three to five words (use fewer words if you think the information is irrelevant) without mentioning the city name or using numbers. do not end with a period. precede the text with the best emoji relevant and one space. example: "cloudy with high winds", example: "sunny and calm", example: "heavy snow". data: ${JSON.stringify(data)}`;
+            const result = await model.generateContent(prompt);
+
+            summary_cache[data.name] = result.response.text();
+            setSummary(summary_cache[data.name]);
+        };
+
+        summarize(data);
+
+    }, [data]);
+
     return (
         <div>{data ?
             (
                 <div className='weather-container'>
-                    {/* TODO: Add units var based on user selection */}
                     {/* TODO: Clean this up and make it look nicer */}
-                    {/* TODO: For fun: add LLM summary of current weather */}
-                    <TemperatureCard data={data} />
+                    <TemperatureCard data={data} summary={summary} />
                     {/* <img src={`http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`} alt={data.weather[0].description} /> */}
                     <div className='weather-card-container'>
                         <SunriseSunsetCard data={data} />
