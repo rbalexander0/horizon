@@ -5,14 +5,13 @@
     color: white;
     text-align: center;
     font-size: 16px;
-    padding: 0px 6px;
-    padding-left: 0px;
     margin: 15px 5px;
     border-radius: 8px;
     text-transform: lowercase;
     display: flex;
     align-items: center;
     justify-self: right;
+    padding: 6px;
 }
 
 .search-bar-container:hover {
@@ -22,14 +21,13 @@
 .search-icon {
     color: white;
     font-size: 16px;
-    padding-left: 6px
 }
 
 .search-button {
-    font-size: 16px;
     display: flex;
     background-color: transparent;
     border: none;
+    padding: 6px;
 }
 
 .search-bar {
@@ -38,8 +36,6 @@
     /* width: max(120px, min-content); */
     height: 100%;
     border-radius: 8px;
-    border-top-right-radius: 0px;
-    border-bottom-right-radius: 0px;
     border: none;
     padding: 0px;
     background-color: #d3d3d3;
