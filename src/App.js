@@ -29,7 +29,7 @@ function WeatherApp() {
     const fetchWeatherData = async () => {
 
       // Cache weather data by location and units so we don't make too many requests.
-      const cacheKey = `${query}_${units}`;
+      const cacheKey = `${query}_${location}_${units}`;
 
       if (cache[cacheKey]) {
         setWeatherData(cache[cacheKey]);
@@ -53,45 +53,57 @@ function WeatherApp() {
     // Update if any of the following change.
     [query, location, units, lang, apiKey]);
 
+
+
   /**
-   * Generates a background gradient color based on the time of day
-   * at the given timezone.
+   * Determines the background color gradient based on the current time
+   * relative to sunrise and sunset times.
+   *
+   * @param {Object} timezone - Object containing timezone information.
+   * @returns {string} The CSS linear-gradient value representing the background color.
    * 
-   * @param {Object} params - Object containing the timezone to use.
-   * @param {number} params.timezone - The timezone offset in seconds.
-   * 
-   * @returns {string} A linear gradient background string in CSS format.
-   * 
-   * The gradient changes based on the time of day at the given timezone.
-   * The colors are:
-   * - Nighttime (9pm - 6am): #4E598C to #2F3542
-   * - Sunrise (6am - 9am): #FFC107 to #4E598C
-   * - Daytime (9am - 6pm): #F4F4FA to #1E90FF
-   * - Sunset (6pm - 9pm): #FFC107 to #4E598C
+   * The function checks if the current time is near sunrise or sunset, 
+   * during the daytime, or during the nighttime, and returns the appropriate
+   * gradient for each case.
    */
-  function backgroundColor({ timezone }) {
+  function backgroundColor() {
 
     // Get the current local hour in 24-hour format
-    const hour = new Date(Date.now() + (weatherData?.timezone * 1000)).getUTCHours();
+    const date = new Date(Date.now());
 
-    // TODO: Refactor this function to use actual sunrise and sunset times
-    // Nighttime gradient
-    if (hour >= 21 || hour < 6) {
-      return `linear-gradient(to bottom, #4E598C, #2F3542)`;
-      // Sunrise gradient
-    } else if (hour >= 6 && hour < 9) {
-      return `linear-gradient(to bottom, #FFC107, #4E598C)`;
+    const sunriseTime = new Date(weatherData?.sys.sunrise * 1000);
+    const sunsetTime = new Date(weatherData?.sys.sunset * 1000);
+
+    console.log(date, sunriseTime, sunsetTime);
+
+    const diffToSunrise = Math.abs(date.getTime() - sunriseTime.getTime());
+    const diffToSunset = Math.abs(date.getTime() - sunsetTime.getTime());
+
+    const nearSunriseMinutes = 45 * (60 * 1000);
+    const isNearSunrise = diffToSunrise <= nearSunriseMinutes;
+    const isNearSunset = diffToSunset <= nearSunriseMinutes;
+
+    // Sunrise & sunset gradient
+    const addNoise = (color, amount) => {
+      const r = color[0] + Math.floor(Math.random() * amount * 2 - amount);
+      const g = color[1] + Math.floor(Math.random() * amount * 2 - amount);
+      const b = color[2] + Math.floor(Math.random() * amount * 2 - amount);
+      return `rgb(${r}, ${g}, ${b})`;
+    };
+
+    if (isNearSunrise || isNearSunset) {
+      return `linear-gradient(to bottom,${addNoise([255, 193, 7], 10)},${addNoise([78, 89, 140], 10)})`;
       // Daytime gradient
-    } else if (hour >= 9 && hour < 18) {
-      return `linear-gradient(to bottom,rgb(228, 228, 250),rgb(30, 149, 246))`;
+    } else if (date > sunriseTime && date < sunsetTime) {
+      return `linear-gradient(to bottom,${addNoise([228, 228, 250], 10)},${addNoise([30, 149, 246], 10)})`;
       // Sunset gradient
-    } else if (hour >= 18 && hour < 21) {
-      return `linear-gradient(to bottom, #FFC107, #4E598C)`;
+    } else if (date < sunriseTime || date > sunsetTime) {
+      return `linear-gradient(to bottom,${addNoise([78, 89, 140], 10)},${addNoise([47, 53, 66], 10)})`;
     }
   }
 
   return (
-    <div className="App" style={{ background: backgroundColor({ timezone: weatherData?.timezone }) }}>
+    <div className="App" style={{ background: backgroundColor() }}>
       <div className='header'>
         <div className='logo-container'>
           <img src={logo} className='logo' alt='logo' />
