@@ -1,0 +1,49 @@
+.search-bar-container {
+    font-family: 'Proxima Nova';
+    background-color: #a5a5a5;
+    border: none;
+    color: white;
+    text-align: center;
+    font-size: 16px;
+    padding: 0px 6px;
+    padding-left: 0px;
+    margin: 15px 5px;
+    border-radius: 8px;
+    text-transform: lowercase;
+    display: flex;
+    align-items: center;
+    justify-self: right;
+}
+
+.search-bar-container:hover {
+    background-color: #7b7b7b;
+}
+
+.search-icon {
+    color: white;
+    font-size: 16px;
+    padding-left: 6px
+}
+
+.search-button {
+    font-size: 16px;
+    display: flex;
+    background-color: transparent;
+    border: none;
+}
+
+.search-bar {
+    font-family: 'Proxima Nova';
+    font-size: 16px;
+    /* width: max(120px, min-content); */
+    height: 100%;
+    border-radius: 8px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border: none;
+    padding: 0px;
+    background-color: #d3d3d3;
+    color: rgb(0, 0, 0);
+    /* Make the bar appear slowly by sliding open */
+    transition: width 0.5s ease-in-out;
+}

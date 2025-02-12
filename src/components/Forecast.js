@@ -154,7 +154,7 @@ function DailyForecast({ query, location, units, lang }) {
 
     useEffect(() => {
         const fetchForecastData = async () => {
-            const cacheKey = `${location}_${units}`;
+            const cacheKey = `${query}_${units}`;
             if (cache[cacheKey]) {
                 setForecastData(cache[cacheKey]);
             } else {

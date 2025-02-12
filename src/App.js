@@ -3,6 +3,7 @@ import Map from './components/Map';
 import CurrentWeather from './components/CurrentWeather';
 import CurrentLocation from './components/CurrentLocation';
 import DailyForecast from './components/Forecast';
+import SearchBar from './components/SearchBar';
 import { useEffect, useState } from 'react';
 import logo from './logo.png';
 import UnitsButton from './components/UnitsButton';
@@ -28,7 +29,7 @@ function WeatherApp() {
     const fetchWeatherData = async () => {
 
       // Cache weather data by location and units so we don't make too many requests.
-      const cacheKey = `${location}_${units}`;
+      const cacheKey = `${query}_${units}`;
 
       if (cache[cacheKey]) {
         setWeatherData(cache[cacheKey]);
@@ -97,26 +98,19 @@ function WeatherApp() {
           <div className='title'>Horizon</div>
         </div>
         <div className='right-side-container'>
+          <SearchBar query={query} setQuery={
+            (query) => {
+              setQuery(query);
+              // This is needed because location controls whether to use query or location
+              setLocation(null);
+            }
+          } />
           <CurrentLocation location={location} setLocation={setLocation} />
           <UnitsButton units={units} onClick={() => setUnits(units === 'metric' ? 'imperial' : 'metric')} />
         </div>
       </div>
       <div className='content'>
-        <div className='search-city-container'>
-          {/* Search bar that sets query when you hit enter  */}
-          <input
-            className='search-city-input'
-            type="text"
-            placeholder="Search for a city"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter') {
-                setQuery(e.target.value);
-              }
-            }} />
-          <div className='city-name'>{city}</div>
-        </div>
+        <div className='city-name'>{city}</div>
         <CurrentWeather data={weatherData} />
         <DailyForecast query={query} location={location} units={units} lang={lang} />
         <Map
