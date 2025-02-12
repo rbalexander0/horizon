@@ -27,15 +27,17 @@ function TemperatureCard({ data }) {
  * @returns {JSX.Element} The JSX code to display sunrise and sunset times.
  */
 function SunriseSunsetCard({ data }) {
+    // Adjustment factor to display correct in local timezone.
+    const timezoneOffset = (new Date()).getTimezoneOffset() * 60 * 1000;
+
+    const sunriseDate = new Date((data.sys.sunrise + data.timezone) * 1000 + timezoneOffset);
+    const sunsetDate = new Date((data.sys.sunset + data.timezone) * 1000 + timezoneOffset);
+
     return (
-        /*************  ✨ Codeium Command 🌟  *************/
         <div className='weather-card'>
-            <p>sunrise: {new Date(data.sys.sunrise * 1000).toLocaleTimeString('en-US',
-                { hour12: true, hour: 'numeric', minute: '2-digit' })}</p>
-            <p>sunset: {new Date(data.sys.sunset * 1000).toLocaleTimeString([],
-                { hour12: true, hour: 'numeric', minute: '2-digit' })}</p>
+            <p>sunrise: {sunriseDate.toLocaleTimeString([], { hour12: true, hour: 'numeric', minute: '2-digit' })}</p>
+            <p>sunset: {sunsetDate.toLocaleTimeString([], { hour12: true, hour: 'numeric', minute: '2-digit' })}</p>
         </div>
-        /******  eaeb9a31-7305-4496-b472-f56587691e39  *******/
     )
 }
 
