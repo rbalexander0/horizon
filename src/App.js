@@ -23,6 +23,8 @@ function WeatherApp() {
   // TODO: Add setLang functionality
   const [lang, /*setLang*/] = useState('en');
 
+  const [showSearchBox, setShowSearchBox] = useState(false);
+
   // TODO: Hide API key from inspect
   const apiKey = process.env.REACT_APP_OPEN_WEATHER_MAP_API_KEY;
 
@@ -111,13 +113,13 @@ function WeatherApp() {
           <div className='title'>Horizon</div>
         </div>
         <div className='right-side-container'>
-          <SearchBar query={query} setQuery={
+          <SearchBar setQuery={
             (query) => {
               setQuery(query);
               // This is needed because location controls whether to use query or location
               setLocation(null);
-            }
-          } />
+            }} showSearchBox={showSearchBox} setShowSearchBox={setShowSearchBox}
+          />
           <CurrentLocation location={location} setLocation={setLocation} />
           <UnitsButton units={units} onClick={() => setUnits(units === 'metric' ? 'imperial' : 'metric')} />
         </div>
