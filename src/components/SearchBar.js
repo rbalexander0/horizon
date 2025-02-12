@@ -30,6 +30,15 @@ function SearchBar({ setQuery }) {
                 value={searchText}
                 ref={searchBarRef}
                 onChange={handleSearchTextChange}
+                onKeyPress={event => {
+                    if (event.key === 'Enter') {
+                        if (showSearchBox) {
+                            console.log(searchText);
+                            if (searchText) setQuery(searchText);
+                        }
+                        toggleSearchBox();
+                    }
+                }}
             />
             <button
                 className='search-button'
