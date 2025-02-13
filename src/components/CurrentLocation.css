@@ -33,6 +33,7 @@
     padding: 6px;
     margin: 5px;
     border-radius: 8px;
+    max-height: 42px;
     text-transform: lowercase;
     display: flex;
     align-items: center;
