@@ -7,7 +7,7 @@ import DailyForecast from './components/Forecast';
 import SearchBar from './components/SearchBar';
 import UnitsButton from './components/UnitsButton';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 
 import logo from './logo.png';
 
@@ -106,11 +106,12 @@ function WeatherApp() {
   }
 
   return (
-    <div className="App" style={{ background: backgroundColor() }}>
+    // eslint-disable-next-line
+    <div className="App" style={{ background: useMemo(() => backgroundColor(), [city]) }}>
       <div className='header'>
         <div className='logo-container'>
           <img src={logo} className='logo' alt='logo' />
-          <div className='title'>Horizon</div>
+          <div className='title' >Horizon</div>
         </div>
         <div className='right-side-container'>
           <SearchBar setQuery={

@@ -7,10 +7,11 @@
     text-align: center;
     font-size: 16px;
     padding: 6px;
-    margin: 15px 5px;
+    margin: 5px;
     width: 40px;
+    aspect-ratio: 1;
     border-radius: 8px;
-    text-transform: lowercase;
+    /* text-transform: lowercase; */
     display: flex;
     align-items: center;
     justify-self: right;

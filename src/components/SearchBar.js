@@ -22,7 +22,7 @@ function SearchBar({ setQuery, showSearchBox, setShowSearchBox }) {
                 type="text"
                 className="search-bar"
                 style={{
-                    width: showSearchBox ? '120px' : '0px', // Set the width to max-content when the search box is shown' : '0px',
+                    width: showSearchBox ? '25vw' : '0px', // Set the width to max-content when the search box is shown' : '0px',
                     paddingLeft: showSearchBox ? '6px' : '0px',
                     paddingRight: showSearchBox ? '6px' : '0px'
                 }}
