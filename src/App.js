@@ -42,12 +42,20 @@ function WeatherApp() {
           `https://api.openweathermap.org/data/2.5/weather?q=${query}&units=${units}&lang=${lang}&appid=${apiKey}` :
           `https://api.openweathermap.org/data/2.5/weather?lat=${location.coords.latitude}&lon=${location.coords.longitude}&units=${units}&lang=${lang}&appid=${apiKey}`
 
-        const response = await fetch(api);
-        const data = await response.json();
+        try {
+          const response = await fetch(api);
+          const data = await response.json();
 
-        cache[cacheKey] = data;
-        setWeatherData(data);
-        setCity(data.name);
+          cache[cacheKey] = data;
+          setWeatherData(data);
+          setCity(data.name);
+
+        } catch (error) {
+
+          console.error('Error fetching weather data:', error);
+          setWeatherData(null);
+
+        }
       }
     };
 
@@ -69,13 +77,17 @@ function WeatherApp() {
    * during the daytime, or during the nighttime, and returns the appropriate
    * gradient for each case.
    */
-  function backgroundColor() {
+  function backgroundColor( data ) {
+
+    if (!data?.sys?.sunrise || !data?.sys?.sunset) {
+        return 'linear-gradient(to top, #939393, #e0e0e0)'; // Default gradient if data is not available
+    }
 
     // Get the current local hour in 24-hour format
     const date = new Date(Date.now());
 
-    const sunriseTime = new Date(weatherData?.sys.sunrise * 1000);
-    const sunsetTime = new Date(weatherData?.sys.sunset * 1000);
+    const sunriseTime = new Date(data.sys.sunrise * 1000);
+    const sunsetTime = new Date(data.sys.sunset * 1000);
 
     console.log(date, sunriseTime, sunsetTime);
 
@@ -107,7 +119,7 @@ function WeatherApp() {
 
   return (
     // eslint-disable-next-line
-    <div className="App" style={{ background: useMemo(() => backgroundColor(), [city]) }}>
+    <div className="App" style={{ background: useMemo(() => backgroundColor(weatherData), [city]) }}>
       <div className='header'>
         <div className='logo-container'>
           <img src={logo} className='logo' alt='logo' />
@@ -117,6 +129,8 @@ function WeatherApp() {
           <SearchBar setQuery={
             (query) => {
               setQuery(query);
+              // This will be overridden later if the city is found
+              setCity(query);
               // This is needed because location controls whether to use query or location
               setLocation(null);
             }} showSearchBox={showSearchBox} setShowSearchBox={setShowSearchBox}
@@ -129,11 +143,7 @@ function WeatherApp() {
         <div className='city-name'>{city}</div>
         <CurrentWeather data={weatherData} />
         <DailyForecast query={query} location={location} units={units} lang={lang} />
-        <Map
-          // Prefer to use current location if specified
-          // TODO: Make fetchWeatherData also set location so we don't have to do this
-          lat={location?.coords.latitude || weatherData?.coord.lat}
-          lon={location?.coords.longitude || weatherData?.coord.lon} />
+        <Map data={weatherData} />
       </div>
     </div >
   );

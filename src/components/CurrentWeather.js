@@ -12,12 +12,19 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
  * @returns {JSX.Element} The JSX code to display current weather information.
  */
 function TemperatureCard({ data, summary }) {
+
+    if (!data?.main?.temp || !data?.main?.temp_max || !data?.main?.temp_min) {
+        return <div className='temperature-card'>
+            <p className='condition'>{summary}</p>
+        </div>
+    }
+
     return (
         <div className='temperature-card'>
-            <div className='temperature-current'>{Math.trunc(data.main.temp)}°</div>
+            <div className='temperature-current'>{Math.trunc(data?.main?.temp)}°</div>
             {/* <p>Feels Like: {Math.trunc(data.main.feels_like)}°</p> */}
             <p className='condition'>{summary}</p>
-            <div className='temperature-high-low'>H:{Math.trunc(data.main.temp_max)}° L:{Math.trunc(data.main.temp_min)}°</div>
+            <div className='temperature-high-low'>H:{Math.trunc(data?.main?.temp_max)}° L:{Math.trunc(data?.main?.temp_min)}°</div>
 
         </div>
     )
@@ -31,6 +38,11 @@ function TemperatureCard({ data, summary }) {
  * @returns {JSX.Element} The JSX code to display sunrise and sunset times.
  */
 function SunriseSunsetCard({ data }) {
+
+    if (!data?.sys?.sunrise || !data?.sys?.sunset) {
+        return <div className='weather-card'></div>
+    }
+
     // Adjustment factor to display correct in local timezone.
     const timezoneOffset = (new Date()).getTimezoneOffset() * 60 * 1000;
 
@@ -41,8 +53,8 @@ function SunriseSunsetCard({ data }) {
         <div className='weather-card'>
             <p>sunrise: {sunriseDate.toLocaleTimeString([], { hour12: true, hour: 'numeric', minute: '2-digit' })}</p>
             <p>sunset: {sunsetDate.toLocaleTimeString([], { hour12: true, hour: 'numeric', minute: '2-digit' })}</p>
-        </div>
-    )
+        </div>)
+    
 }
 
 /**
@@ -53,6 +65,11 @@ function SunriseSunsetCard({ data }) {
  * @returns {JSX.Element} The JSX code to display wind information.
  */
 function WindCard({ data }) {
+
+    if (!data?.wind?.speed || !data?.wind?.deg) {
+        return <div className='weather-card'></div>
+    }
+
     const getWindDirection = (deg) => {
         const directions = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'];
         const index = Math.floor((deg + 11.25) / 22.5);
@@ -76,6 +93,11 @@ function WindCard({ data }) {
  * @returns {JSX.Element} The JSX code to display other weather information.
  */
 function OtherInfoCard({ data }) {
+
+    if (!data?.main?.humidity || !data?.main?.pressure || !data?.visibility) {
+        return <div className='weather-card'></div>
+    }
+
     return (
         <div className='weather-card'>
             <p className='description'>humidity: {data.main.humidity}%</p>
@@ -98,10 +120,14 @@ const summary_cache = {};
  */
 function CurrentWeather({ data }) {
 
-    const [summary, setSummary] = useState('test');
+    const [summary, setSummary] = useState('');
 
     useEffect(() => {
         const summarize = async (data) => {
+
+            if (!data) {
+                return;
+            }
 
             // Cache summaries per city name -- it's not needed to make a request when e.g. units change
             if (summary_cache[data.name]) {
@@ -125,6 +151,7 @@ function CurrentWeather({ data }) {
 
     }, [data]);
 
+    console.log('data', data);
     return (
         <div>{data ?
             (

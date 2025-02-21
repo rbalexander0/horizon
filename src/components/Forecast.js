@@ -18,9 +18,10 @@ function ForecastCard({ forecastData }) {
     // On mount, aggregate the data into a daily format.
     useEffect(() => {
         if (forecastData) {
+            console.log('forecastData', forecastData)
             const dailyForecastObj = {};
 
-            forecastData.list.forEach(forecast => {
+            forecastData?.list?.forEach(forecast => {
                 const dateString = forecast.dt_txt.split(' ')[0];
                 if (!dailyForecastObj[dateString]) {
                     dailyForecastObj[dateString] = {
@@ -154,7 +155,7 @@ function DailyForecast({ query, location, units, lang }) {
 
     useEffect(() => {
         const fetchForecastData = async () => {
-            const cacheKey = `${query} _${location} _${units}`;
+            const cacheKey = `${query}_${location}_${units}`;
             if (cache[cacheKey]) {
                 setForecastData(cache[cacheKey]);
             } else {
@@ -164,11 +165,17 @@ function DailyForecast({ query, location, units, lang }) {
                     `https://api.openweathermap.org/data/2.5/forecast?q=${query}&units=${units}&lang=${lang}&appid=${apiKey}` :
                     `https://api.openweathermap.org/data/2.5/forecast?lat=${location.coords.latitude}&lon=${location.coords.longitude}&units=${units}&lang=${lang}&appid=${apiKey}`
 
-                const response = await fetch(api);
-                const data = await response.json();
+                try {
+                    const response = await fetch(api);
+                    const data = await response.json();
 
-                cache[cacheKey] = data;
-                setForecastData(data);
+                    cache[cacheKey] = data;
+                    setForecastData(data);
+
+                } catch (error) {
+                    console.error('Error fetching forecast data:', error);
+                    setForecastData(null);
+                }
             }
         };
 
@@ -179,7 +186,7 @@ function DailyForecast({ query, location, units, lang }) {
 
     return (
         <div className='forecast-card-container'>
-            {forecastData ? <ForecastCard forecastData={forecastData} /> : <p>Loading...</p>}
+            <ForecastCard forecastData={forecastData} />
         </div>
     )
 }

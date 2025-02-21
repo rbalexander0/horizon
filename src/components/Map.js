@@ -1,13 +1,18 @@
 import { GoogleMap, LoadScript } from '@react-google-maps/api';
 import './Map.css';
 
-function Map({ lat, lon }) {
+function Map({ data }) {
+
+    if (!data) {
+        return null;
+    }
+
     // TODO: Hide API key from inspect
     const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
     const center = {
-        lat: lat,
-        lng: lon
+        lat: data?.coord?.lat,
+        lng: data?.coord?.lon
     }
     const mapContainerStyle = {
         width: '100%',
